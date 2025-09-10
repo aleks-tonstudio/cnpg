@@ -13,7 +13,7 @@ COPY ./install_pg_extensions.sh /
 USER root
 RUN \
     apt install -y postgresql-common
-    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
 RUN \
     apt-get update
     apt install -y postgresql-17-pglogical
