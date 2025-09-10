@@ -8,7 +8,6 @@ ENV EXTENSIONS=${EXTENSIONS}
 #ARG TIMESCALEDB_VERSION
 #ENV TIMESCALEDB_VERSION=${TIMESCALEDB_VERSION}
 
-COPY ./install_pg_extensions.sh /
 # switch to root user to install extensions
 USER root
 RUN apt-get update && \
