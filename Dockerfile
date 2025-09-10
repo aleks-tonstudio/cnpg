@@ -11,14 +11,12 @@ ENV EXTENSIONS=${EXTENSIONS}
 COPY ./install_pg_extensions.sh /
 # switch to root user to install extensions
 USER root
-RUN \
-    apt install -y postgresql-common
-    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-RUN \
-    apt-get update
-    apt install -y postgresql-17-pglogical
-    # cleanup
+RUN apt-get update && \
+    apt-get install -y postgresql-common && \
+    sh /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
+    apt-get update && \
+    apt-get install -y postgresql-17-pglogical && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install_pg_extensions.sh
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # switch back to the postgres user
 USER postgres
