@@ -23,6 +23,8 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set sha-short
+      run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-7)" >> $GITHUB_ENV
     - name: calculate image tag
       id: vars
       run: |
@@ -32,6 +34,6 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/postgresql:${{ steps.vars.outputs.IMAGE_TAG }}
+        tags: ghcr.io/${{ github.repository_owner }}/postgresql:${{ steps.vars.outputs.IMAGE_TAG }}-${{ env.GITHUB_SHA_SHORT }}
         build-args: |
           POSTGRESQL_VERSION=${{ github.event.inputs.PG_VERSION }}
